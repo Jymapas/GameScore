@@ -11,7 +11,9 @@
                 actualResults.Add(score switch
                 {
                     "X" => 10,
-                    _ => int.Parse(score)
+                    _ => int.TryParse(score, out var numScore) && numScore <= 10 && numScore >= 0
+                        ? numScore 
+                        : throw new IncorrectInputException("Incorrect input. Please check your score-list.")
                 });
             }
             
