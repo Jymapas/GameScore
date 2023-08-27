@@ -23,7 +23,8 @@
 
             [Test]
             [TestCase(new[] {"X"}, new[] {10})]
-            public void ShowScoreSuccess(string[] input, int[] expectedScore)
+            [TestCase(new[] { "X", "7" }, new[] { 17, 7 })]
+        public void ShowScoreSuccess(string[] input, int[] expectedScore)
             {
                 // Arrange
                 var inputList = new List<string>(input);
@@ -33,7 +34,7 @@
                 var result = _scoreCalculator!.ShowScore(inputList);
 
                 // Assert
-                Assert.That(expectedScoreList, Is.EqualTo(result));
+                Assert.That(result, Is.EqualTo(expectedScoreList));
             }
             
             [Test]
