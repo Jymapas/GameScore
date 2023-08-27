@@ -1,17 +1,18 @@
-﻿namespace GameScoreCalculator
+﻿using GameScoreCalculator.Interfaces;
+
+namespace GameScoreCalculator
 {
     public class ScoreCalculator : IScoreCalculator
     {
         private const string strikeMark = "X";
 
-        public List<int> ShowScore(IList<string> input)
+        public List<IScore> ShowScore(IList<string> input)
         {
             var actualResults = GetFramesByScore(input);
 
             AddBonuses(actualResults);
 
-            var frames = actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults;
-            return frames.Select(x => x.OwnScore).ToList();
+            return new List<IScore>(actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults);
         }
 
         private static List<Frame> GetFramesByScore(IList<string> input)
@@ -47,7 +48,7 @@
                 if (!frame.Previous.IsStrike)
                     continue;
 
-                if (frame.IsStrike && i < actualResults.Count - 1 )
+                if (frame.IsStrike && i < actualResults.Count - 1)
                     frame.Previous.Bonus += actualResults[i + 1].FirstThrow;
 
                 frame.Previous.Bonus += frame.SecondThrow ?? 0;
@@ -63,31 +64,6 @@
                     ? num
                     : throw new IncorrectInputException("Incorrect input. Please check your score-list.")
             };
-        }
-
-        private class Frame
-        {
-            public int FirstThrow { get; set; }
-
-            public int? SecondThrow { get; set; }
-
-            public int Bonus { get; set; }
-
-            public bool IsStrike { get; set; }
-            public bool IsSpare => FirstThrow + (SecondThrow ?? 0) == 10;
-
-            public int OwnScore => FirstThrow + (SecondThrow ?? 0) + Bonus;
-
-            public Frame? Previous { get; }
-
-            public int Score => Previous.Score + OwnScore;
-
-            public Frame(int firstThrow, Frame? previous)
-            {
-                FirstThrow = firstThrow;
-                Previous = previous;
-                if (FirstThrow == 10) IsStrike = true;
-            }
         }
     }
 }

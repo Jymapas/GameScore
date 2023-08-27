@@ -1,8 +1,9 @@
-    using NUnit.Framework;
+using GameScoreCalculator.Interfaces;
+using NUnit.Framework;
 
-    namespace GameScoreCalculator.Tests
-    {
-        public class ScoreCalculatorTests
+namespace GameScoreCalculator.Tests
+{
+    public class ScoreCalculatorTests
         {
             private IScoreCalculator? _scoreCalculator;
 
@@ -44,7 +45,7 @@
                 var result = _scoreCalculator!.ShowScore(inputList);
 
                 // Assert
-                Assert.That(result, Is.EqualTo(expectedScoreList));
+                Assert.That(result.Select(x => x.OwnScore), Is.EquivalentTo(expectedScoreList));
             }
             
             [Test]
