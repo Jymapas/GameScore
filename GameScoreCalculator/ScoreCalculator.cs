@@ -10,12 +10,14 @@
 
             AddBonuses(actualResults);
 
-            return actualResults.Select(x => x.Score).ToList();
+            var frames = actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults;
+            return frames.Select(x => x.Score).ToList();
         }
 
         private static List<Frame> GetFramesByScore(IList<string> input)
         {
-            List<Frame> actualResults = new(input.Count);
+            const int frameCap = 12;
+            List<Frame> actualResults = new(frameCap);
             for (var i = 0; i < input.Count; i++)
             {
                 var score = input[i].ToUpper();
