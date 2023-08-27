@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameScoreCalculator
+﻿namespace GameScoreCalculator
 {
-    internal interface IScoreCalculator
+    public interface IScoreCalculator
     {
+        List<int> ShowScore(IList<string> input);
     }
 }
