@@ -1,30 +1,50 @@
-using NUnit.Framework;
+    using NUnit.Framework;
 
-namespace GameScoreCalculator.Tests
-{
-    public class ScoreCalculatorTests
+    namespace GameScoreCalculator.Tests
     {
-        private IScoreCalculator? _scoreCalculator;
-
-        [SetUp]
-        public void Setup()
+        public class ScoreCalculatorTests
         {
-            _scoreCalculator = new ScoreCalculator();
-        }
+            private IScoreCalculator? _scoreCalculator;
 
-        [Test]
-        [TestCase(new[] {"X"}, new[] {10})]
-        public void ShowScoreSuccess(string[] input, int[] expectedScore)
-        {
-            // Arrange
-            var inputList = new List<string>(input);
-            var expectedScoreList = new List<int>(expectedScore);
+            private static IEnumerable<string[]?> TestCasesForShowScoreIncorrectInput
+            {
+                get
+                {
+                    yield return new[] { "11" };
+                    yield return new[] { "A" };
+                }
+            }
 
-            // Act
-            var result = _scoreCalculator!.ShowScore(inputList);
+            [SetUp]
+            public void Setup()
+            {
+                _scoreCalculator = new ScoreCalculator();
+            }
 
-            // Assert
-            Assert.That(expectedScoreList, Is.EqualTo(result));
+            [Test]
+            [TestCase(new[] {"X"}, new[] {10})]
+            public void ShowScoreSuccess(string[] input, int[] expectedScore)
+            {
+                // Arrange
+                var inputList = new List<string>(input);
+                var expectedScoreList = new List<int>(expectedScore);
+
+                // Act
+                var result = _scoreCalculator!.ShowScore(inputList);
+
+                // Assert
+                Assert.That(expectedScoreList, Is.EqualTo(result));
+            }
+            
+            [Test]
+            [TestCaseSource(nameof(TestCasesForShowScoreIncorrectInput))]
+            public void ShowScoreIncorrectInput(string[] input)
+            {
+                // Arrange
+                var inputList = new List<string>(input);
+
+                // Act & Assert
+                Assert.Throws<Exception>(() => _scoreCalculator!.ShowScore(inputList)); // Todo CustomException
+            }
         }
     }
-}
