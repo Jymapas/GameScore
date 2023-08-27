@@ -11,7 +11,7 @@
             AddBonuses(actualResults);
 
             var frames = actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults;
-            return frames.Select(x => x.Score).ToList();
+            return frames.Select(x => x.OwnScore).ToList();
         }
 
         private static List<Frame> GetFramesByScore(IList<string> input)
@@ -20,12 +20,13 @@
             List<Frame> actualResults = new(frameCap);
             for (var i = 0; i < input.Count; i++)
             {
+                var frame = i > 0 ? actualResults[^1] : null;
                 var score = input[i].ToUpper();
                 var numScore = ScoreToNumeral(score);
 
                 if (i == 0 || actualResults[^1].IsStrike || actualResults[^1].SecondThrow != null)
                 {
-                    actualResults.Add(new Frame(numScore));
+                    actualResults.Add(new Frame(numScore, frame));
                     continue;
                 }
 
@@ -39,18 +40,17 @@
         {
             for (var i = actualResults.Count - 1; i > 0; i--)
             {
-                var previousFrame = actualResults[i - 1];
-                var currentFrame = actualResults[i];
+                var frame = actualResults[i];
 
-                if (previousFrame.IsSpare) previousFrame.Bonus += currentFrame.FirstThrow;
+                if (frame.Previous!.IsSpare) frame.Previous.Bonus += frame.FirstThrow;
 
-                if (!previousFrame.IsStrike)
+                if (!frame.Previous.IsStrike)
                     continue;
 
-                if (currentFrame.IsStrike && i < actualResults.Count - 1 )
-                    previousFrame.Bonus += actualResults[i + 1].FirstThrow;
+                if (frame.IsStrike && i < actualResults.Count - 1 )
+                    frame.Previous.Bonus += actualResults[i + 1].FirstThrow;
 
-                previousFrame.Bonus += currentFrame.SecondThrow ?? 0;
+                frame.Previous.Bonus += frame.SecondThrow ?? 0;
             }
         }
 
@@ -76,11 +76,16 @@
             public bool IsStrike { get; set; }
             public bool IsSpare => FirstThrow + (SecondThrow ?? 0) == 10;
 
-            public int Score => FirstThrow + (SecondThrow ?? 0) + Bonus;
+            public int OwnScore => FirstThrow + (SecondThrow ?? 0) + Bonus;
 
-            public Frame(int firstThrow)
+            public Frame? Previous { get; }
+
+            public int Score => Previous.Score + OwnScore;
+
+            public Frame(int firstThrow, Frame? previous)
             {
                 FirstThrow = firstThrow;
+                Previous = previous;
                 if (FirstThrow == 10) IsStrike = true;
             }
         }
