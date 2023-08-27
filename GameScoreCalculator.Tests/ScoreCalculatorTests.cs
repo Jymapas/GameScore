@@ -25,6 +25,7 @@
             [TestCase(new[] {"X"}, new[] {10})]
             [TestCase(new[] { "X", "7" }, new[] { 17, 7 })]
             [TestCase(new[] { "X", "7", "3" }, new[] { 20, 10 })]
+            [TestCase(new[] { "X", "X", "X", "X" }, new[] { 30, 30, 20, 10 })]
         public void ShowScoreSuccess(string[] input, int[] expectedScore)
             {
                 // Arrange
