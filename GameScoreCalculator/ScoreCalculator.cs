@@ -8,7 +8,7 @@
         {
             var actualResults = GetFramesByScore(input);
 
-            AddBonusesToStrikes(actualResults);
+            AddBonuses(actualResults);
 
             return actualResults.Select(x => x.Score).ToList();
         }
@@ -33,14 +33,22 @@
             return actualResults;
         }
 
-        private static void AddBonusesToStrikes(List<Frame> actualResults)
+        private static void AddBonuses(List<Frame> actualResults)
         {
             for (var i = actualResults.Count - 1; i > 0; i--)
             {
-                if (actualResults[i - 1].IsStrike)
-                {
-                    actualResults[i - 1].Bonus = actualResults[i].Score;
-                }
+                var previousFrame = actualResults[i - 1];
+                var currentFrame = actualResults[i];
+
+                if (previousFrame.IsSpare) previousFrame.Bonus += currentFrame.FirstThrow;
+
+                if (!previousFrame.IsStrike)
+                    continue;
+
+                if (currentFrame.IsStrike && i < actualResults.Count - 1 )
+                    previousFrame.Bonus += actualResults[i + 1].FirstThrow;
+
+                previousFrame.Bonus += currentFrame.SecondThrow ?? 0;
             }
         }
 
@@ -64,6 +72,7 @@
             public int Bonus { get; set; }
 
             public bool IsStrike { get; set; }
+            public bool IsSpare => FirstThrow + (SecondThrow ?? 0) == 10;
 
             public int Score => FirstThrow + (SecondThrow ?? 0) + Bonus;
 
