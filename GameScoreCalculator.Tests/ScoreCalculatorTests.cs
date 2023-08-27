@@ -44,7 +44,9 @@
                 var inputList = new List<string>(input);
 
                 // Act & Assert
-                Assert.Throws<Exception>(() => _scoreCalculator!.ShowScore(inputList)); // Todo CustomException
+                Assert.Throws<IncorrectInputException>(
+                    () => _scoreCalculator!.ShowScore(inputList),
+                    "Incorrect input. Please check your score-list.");
             }
         }
     }
