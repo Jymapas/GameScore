@@ -4,7 +4,7 @@ namespace GameScoreCalculator
 {
     public class ScoreCalculator : IScoreCalculator
     {
-        private const string strikeMark = "X";
+        private const string StrikeMark = "X";
 
         public List<IScore> ShowScore(IList<string> input)
         {
@@ -17,7 +17,7 @@ namespace GameScoreCalculator
 
         private static List<Frame> GetFramesByScore(IList<string> input)
         {
-            const int frameCap = 12;
+            const int frameCap = 10;
             List<Frame> actualResults = new(frameCap);
             for (var i = 0; i < input.Count; i++)
             {
@@ -31,7 +31,13 @@ namespace GameScoreCalculator
                     continue;
                 }
 
-                actualResults[^1].SecondThrow = numScore;
+                if (actualResults.Count != 10 || actualResults[^1].SecondThrow == null)
+                {
+                    actualResults[^1].SecondThrow = numScore;
+                    continue;
+                }
+
+                actualResults[^1].ThirdThrow = numScore;
             }
 
             return actualResults;
@@ -59,7 +65,7 @@ namespace GameScoreCalculator
         {
             return score switch
             {
-                strikeMark => 10,
+                StrikeMark => 10,
                 _ => int.TryParse(score, out var num) && num <= 10 && num >= 0
                     ? num
                     : throw new IncorrectInputException("Incorrect input. Please check your score-list.")

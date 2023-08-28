@@ -9,13 +9,14 @@ public class Frame : IScore
     public int FirstThrow { get; set; }
 
     public int? SecondThrow { get; set; }
+    public int? ThirdThrow { get; set; }
 
     public int Bonus { get; set; }
 
     public bool IsStrike { get; set; }
     public bool IsSpare => FirstThrow + (SecondThrow ?? 0) == 10;
 
-    public int OwnScore => FirstThrow + (SecondThrow ?? 0) + Bonus;
+    public int OwnScore => FirstThrow + (SecondThrow ?? 0) + (ThirdThrow ?? 0) + Bonus;
 
     public Frame? Previous { get; }
 
