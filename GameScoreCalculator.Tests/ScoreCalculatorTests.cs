@@ -5,9 +5,9 @@ namespace GameScoreCalculator.Tests
 {
     public class ScoreCalculatorTests
         {
-            private IScoreCalculator? _scoreCalculator;
+            private IScoreCalculator _scoreCalculator;
 
-            private static IEnumerable<string[]?> TestCasesForShowScoreIncorrectInput
+            private static IEnumerable<string[]> TestCasesForShowScoreIncorrectInput
             {
                 get
                 {
