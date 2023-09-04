@@ -7,14 +7,12 @@ namespace GameScoreCalculator.Tests
         {
             private IScoreCalculator _scoreCalculator;
 
-            private static IEnumerable<string[]> TestCasesForShowScoreIncorrectInput
-            {
-                get
+            private static List<List<string>> TestCasesForShowScoreIncorrectInput 
+                => new()
                 {
-                    yield return new[] { "11" };
-                    yield return new[] { "A" };
-                }
-            }
+                    new List<string> { "11" }, 
+                    new List<string> { "A" }
+                };
 
             [SetUp]
             public void Setup()
