@@ -6,13 +6,13 @@ namespace GameScoreCalculator
     {
         private const string StrikeMark = "X";
 
-        public List<IScore> ShowScore(IList<string> input)
+        public List<IFrameScore> ShowScore(IList<string> input)
         {
             var actualResults = GetFramesByScore(input);
 
             AddBonuses(actualResults);
 
-            return new List<IScore>(actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults);
+            return new List<IFrameScore>(actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults);
         }
 
         private static List<Frame> GetFramesByScore(IList<string> input)

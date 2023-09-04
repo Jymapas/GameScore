@@ -2,6 +2,6 @@
 {
     public interface IScoreCalculator
     {
-        List<IScore> ShowScore(IList<string> input);
+        List<IFrameScore> ShowScore(IList<string> input);
     }
 }

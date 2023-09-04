@@ -3,7 +3,7 @@
 namespace GameScoreCalculator;
 
 
-public class Frame : IScore
+public class Frame : IFrameScore
 {
     public int Id { get; }
     public int FirstThrow { get; set; }
