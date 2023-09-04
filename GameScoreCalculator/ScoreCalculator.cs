@@ -8,14 +8,14 @@ namespace GameScoreCalculator
 
         public List<IFrameScore> ShowScore(IList<string> input)
         {
-            var actualResults = GetFramesByScore(input);
+            var actualResults = ParseBowlingFrames(input);
 
             AddBonuses(actualResults);
 
             return new List<IFrameScore>(actualResults.Count > 10 ? actualResults.GetRange(0, 10) : actualResults);
         }
 
-        private static List<Frame> GetFramesByScore(IList<string> input)
+        private static List<Frame> ParseBowlingFrames(IList<string> input)
         {
             const int frameCap = 10;
             List<Frame> actualResults = new(frameCap);
