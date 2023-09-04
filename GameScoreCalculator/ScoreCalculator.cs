@@ -68,7 +68,7 @@ namespace GameScoreCalculator
                 StrikeMark => 10,
                 _ => int.TryParse(score, out var num) && num <= 10 && num >= 0
                     ? num
-                    : throw new IncorrectInputException("Incorrect input. Please check your score-list.")
+                    : throw new ArgumentException("Incorrect input. Please check your score-list.")
             };
         }
     }
