@@ -48,14 +48,11 @@ namespace GameScoreCalculator.Tests
             
             [Test]
             [TestCaseSource(nameof(TestCasesForShowScoreIncorrectInput))]
-            public void ShowScoreIncorrectInput(string[] input)
+            public void ShowScoreIncorrectInput(List<string> input)
             {
-                // Arrange
-                var inputList = new List<string>(input);
-
                 // Act & Assert
                 Assert.Throws<IncorrectInputException>(
-                    () => _scoreCalculator!.ShowScore(inputList),
+                    () => _scoreCalculator!.ShowScore(input),
                     "Incorrect input. Please check your score-list.");
             }
         }
