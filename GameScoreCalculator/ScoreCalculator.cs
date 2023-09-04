@@ -49,13 +49,20 @@ namespace GameScoreCalculator
             {
                 var frame = actualResults[i];
 
-                if (frame.Previous!.IsSpare) frame.Previous.Bonus += frame.FirstThrow;
+                if (frame.Previous!.IsSpare)
+                {
+                    frame.Previous.Bonus += frame.FirstThrow;
+                }
 
                 if (!frame.Previous.IsStrike)
+                {
                     continue;
+                }
 
                 if (frame.IsStrike && i < actualResults.Count - 1)
+                {
                     frame.Previous.Bonus += actualResults[i + 1].FirstThrow;
+                }
 
                 frame.Previous.Bonus += frame.SecondThrow ?? 0;
             }

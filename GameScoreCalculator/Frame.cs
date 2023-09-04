@@ -27,6 +27,9 @@ public class Frame : IFrameScore
         FirstThrow = firstThrow;
         Previous = previous;
         Id = previous?.Id + 1 ?? 1;
-        if (FirstThrow == 10) IsStrike = true;
+        if (FirstThrow == 10)
+        {
+            IsStrike = true;
+        }
     }
 }
