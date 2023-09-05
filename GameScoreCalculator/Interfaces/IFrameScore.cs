@@ -1,6 +1,6 @@
 ﻿namespace GameScoreCalculator.Interfaces
 {
-    public interface IScore
+    public interface IFrameScore
     {
         public int Id { get; }
         public int FirstThrow { get; }

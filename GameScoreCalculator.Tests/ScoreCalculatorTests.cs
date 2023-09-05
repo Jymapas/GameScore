@@ -7,20 +7,20 @@ namespace GameScoreCalculator.Tests
         {
             private IScoreCalculator _scoreCalculator;
 
-            private static List<List<string>> TestCasesForShowScoreIncorrectInput 
+            private static List<List<string>> TestCasesForShowScoreIncorrectInput
                 => new()
                 {
-                    new List<string> { "11" }, 
+                    new List<string> { "11" },
                     new List<string> { "A" }
                 };
 
-            [SetUp]
+        [SetUp]
             public void Setup()
             {
                 _scoreCalculator = new ScoreCalculator();
             }
 
-            [Test] // Протестировать Id, Score, FirstThrow, SecondThrow
+            [Test]
             [TestCase(new[] {"X"}, new[] {10})]
             [TestCase(new[] { "X", "7" }, new[] { 17, 7 })]
             [TestCase(new[] { "X", "7", "3" }, new[] { 20, 10 })]
@@ -33,6 +33,9 @@ namespace GameScoreCalculator.Tests
             [TestCase(new[] { "X", "7", "3", "4", "2", "9", "1", "X", "X", "X", "2", "3", "6", "4", "7" }, new[] { 20, 14, 6, 20, 30, 22, 15, 5, 17, 7 })]
             [TestCase(new[] { "X", "7", "3", "5", "2", "9", "1", "X", "X", "X", "2", "3", "6", "4", "7", "3" }, new[] { 20, 15, 7, 20, 30, 22, 15, 5, 17, 10 })]
             [TestCase(new[] { "X", "7", "3", "6", "2", "9", "1", "X", "X", "X", "2", "3", "6", "4", "7", "3", "3" }, new[] { 20, 16, 8, 20, 30, 22, 15, 5, 17, 13 })]
+            [TestCase(new[] { "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" }, new[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 })]
+            [TestCase(new[] { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" }, new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 })]
+            [TestCase(new[] { "X", "0", "0", "X", "0", "0", "X", "0", "0", "X", "0", "0", "X", "0", "0", }, new[] { 10, 0, 10, 0, 10, 0, 10, 0, 10, 0 })]
         public void ShowScoreSuccess(string[] input, int[] expectedScore)
             {
                 // Arrange

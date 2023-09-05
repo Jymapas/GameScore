@@ -3,7 +3,7 @@
 namespace GameScoreCalculator;
 
 
-public class Frame : IScore
+public class Frame : IFrameScore
 {
     public int Id { get; }
     public int FirstThrow { get; set; }
@@ -27,6 +27,9 @@ public class Frame : IScore
         FirstThrow = firstThrow;
         Previous = previous;
         Id = previous?.Id + 1 ?? 1;
-        if (FirstThrow == 10) IsStrike = true;
+        if (FirstThrow == 10)
+        {
+            IsStrike = true;
+        }
     }
 }
