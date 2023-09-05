@@ -7,16 +7,14 @@ namespace GameScoreCalculator.Tests
         {
             private IScoreCalculator? _scoreCalculator;
 
-            private static IEnumerable<string[]?> TestCasesForShowScoreIncorrectInput
-            {
-                get
+            private static List<List<string>> TestCasesForShowScoreIncorrectInput
+                => new()
                 {
-                    yield return new[] { "11" };
-                    yield return new[] { "A" };
-                }
-            }
+                    new List<string> { "11" },
+                    new List<string> { "A" }
+                };
 
-            [SetUp]
+        [SetUp]
             public void Setup()
             {
                 _scoreCalculator = new ScoreCalculator();
@@ -53,14 +51,11 @@ namespace GameScoreCalculator.Tests
             
             [Test]
             [TestCaseSource(nameof(TestCasesForShowScoreIncorrectInput))]
-            public void ShowScoreIncorrectInput(string[] input)
+            public void ShowScoreIncorrectInput(List<string> input)
             {
-                // Arrange
-                var inputList = new List<string>(input);
-
                 // Act & Assert
                 Assert.Throws<IncorrectInputException>(
-                    () => _scoreCalculator!.ShowScore(inputList),
+                    () => _scoreCalculator!.ShowScore(input),
                     "Incorrect input. Please check your score-list.");
             }
         }
