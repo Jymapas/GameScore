@@ -22,7 +22,7 @@ namespace GameScoreCalculator.Tests
                 _scoreCalculator = new ScoreCalculator();
             }
 
-            [Test] // Протестировать Id, Score, FirstThrow, SecondThrow
+            [Test]
             [TestCase(new[] {"X"}, new[] {10})]
             [TestCase(new[] { "X", "7" }, new[] { 17, 7 })]
             [TestCase(new[] { "X", "7", "3" }, new[] { 20, 10 })]
