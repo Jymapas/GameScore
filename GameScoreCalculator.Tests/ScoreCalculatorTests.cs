@@ -5,7 +5,7 @@ namespace GameScoreCalculator.Tests
 {
     public class ScoreCalculatorTests
         {
-            private IScoreCalculator? _scoreCalculator;
+            private IScoreCalculator _scoreCalculator;
 
             private static List<List<string>> TestCasesForShowScoreIncorrectInput
                 => new()
