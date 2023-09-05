@@ -54,7 +54,7 @@ namespace GameScoreCalculator.Tests
             public void ShowScoreIncorrectInput(List<string> input)
             {
                 // Act & Assert
-                Assert.Throws<IncorrectInputException>(
+                Assert.Throws<ArgumentException>(
                     () => _scoreCalculator!.ShowScore(input),
                     "Incorrect input. Please check your score-list.");
             }
