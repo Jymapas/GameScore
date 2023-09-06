@@ -18,11 +18,11 @@ public class Frame : IFrameScore
 
     public int OwnScore => FirstThrow + (SecondThrow ?? 0) + (ThirdThrow ?? 0) + Bonus;
 
-    public Frame? Previous { get; }
+    public Frame Previous { get; }
 
     public int Score => Previous.Score + OwnScore;
 
-    public Frame(int firstThrow, Frame? previous)
+    public Frame(int firstThrow, Frame previous)
     {
         FirstThrow = firstThrow;
         Previous = previous;
